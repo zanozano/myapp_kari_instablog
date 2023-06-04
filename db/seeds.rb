@@ -9,6 +9,16 @@ User.create!(
   admin: true
 )
 
+#normal usuario
+User.create!(
+  email: 'jose@example.com',
+  password: '123456',
+  password_confirmation: '123456',
+  img_profile: nil,
+  admin: false
+)
+
+
 10.times do
   User.create!(
     email: Faker::Internet.email,
