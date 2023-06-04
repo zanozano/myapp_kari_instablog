@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KariPic</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">InstaBlog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto">
+     
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete">Sign out</a>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="<%= new_user_session_path %>">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= new_user_registration_path %>">Sign up</a>
+            </li>
+          <% end %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+ <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-12">
+      <%= yield %>
+     </div>
+  </div>
+</div>
+
+  </body>
+
+</html>

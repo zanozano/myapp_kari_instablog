@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Instablogs</h1>
+
+<div id="instablogs">
+  <% @instablogs.each do |instablog| %>
+    <%= render instablog %>
+    <p>
+      <%= link_to "Show this instablog", instablog %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New instablog", new_instablog_path %>
