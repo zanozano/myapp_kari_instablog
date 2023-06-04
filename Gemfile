@@ -78,3 +78,4 @@ gem 'faker'
 gem 'carrierwave'
 gem "bootstrap"
 gem "jquery-rails"
+gem "mini_magick"

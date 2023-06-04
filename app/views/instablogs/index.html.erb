@@ -6,9 +6,20 @@
     <div id="instablogs">
       <% @instablogs.each do |instablog| %>
         <%= render instablog %>
-        <p>
-          <%= link_to "Show this instablog", instablog %>
-        </p>
+
+        <%= form_with(model: Comment.new, url: comments_path(instablog_id: instablog.id), local: true) do |form| %>
+          <div class="mb-3">
+            <%= form.label :text, "Escribe tu comentario:" %>
+            <%= form.text_field :text, class: "form-control", id: "comment" %>
+          </div>
+          <% if current_user %>
+            <%= form.hidden_field :user_id, value: current_user.id %>
+          <% else %>
+            <%= form.hidden_field :user_email, value: "Anónimo" %>
+          <% end %>
+          <%= form.submit "Enviar", class: "btn btn-primary" %>
+        <% end %>
+
       <% end %>
     </div>
 

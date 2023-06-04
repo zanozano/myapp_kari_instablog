@@ -2,7 +2,10 @@ class CommentsController < ApplicationController
   def create
     @instablog = Instablog.find(params[:instablog_id])
     @comment = @instablog.comments.build(comment_params)
-    @comment.user = current_user
+
+    if current_user
+      @comment.user_id = current_user.id
+    end
 
     if @comment.save
       redirect_to instablog_path(@instablog), notice: "Comment created successfully."

@@ -9,9 +9,9 @@ class InstablogsController < ApplicationController
 
   # GET /instablogs/1 or /instablogs/1.json
   def show
+    @instablog = Instablog.find(params[:id])
   end
-
-  # GET /instablogs/new
+    # GET /instablogs/new
   def new
     @instablog = Instablog.new
   end

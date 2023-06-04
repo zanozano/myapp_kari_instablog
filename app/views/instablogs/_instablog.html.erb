@@ -1,10 +1,42 @@
-<div id="<%= dom_id instablog %>">
+<div class="mb-4" id="<%= dom_id instablog %>">
+  
+<div class="container-fluid">
+  <% if instablog.image.present? %>
+    <div class="img-responsive" style="position: relative; overflow: hidden; padding-bottom: 100%; width: 100%;">
+      <%= image_tag instablog.image.url, style: "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; height: auto;" %>
+    </div>
+  <% end %>
+</div>
   <p>
-    <strong>Image:</strong>
-    <%= instablog.image %>
-  </p>
-  <p>
-    <strong>Body:</strong>
     <%= instablog.body %>
   </p>
+  <hr>
+
+<% @instablog.comments.order(created_at: :desc).each do |comment| %>
+  <div class="comment">
+    <p class="m-0"><strong><%= comment.user.email %></strong></p> 
+    <p><%= comment.text %></p>
+    <pre class="timestamp"><%= comment.created_at %></pre>
+    <hr>
+  </div>
+<% end %>
+
+<form action="<%= comments_path(instablog_id: instablog.id) %>" method="post">
+  <div class="mb-3">
+    <label for="comment">Escribe tu comentario:</label>
+    <input type="text" class="form-control" id="comment" name="comment[text]">
+  </div>
+  <% if current_user %>
+    <input type="hidden" name="user_email" value="<%= current_user.email %>">
+  <% else %>
+    <input type="hidden" name="user_email" value="Anónimo">
+  <% end %>
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+
+
+
+
 </div>
+
+
