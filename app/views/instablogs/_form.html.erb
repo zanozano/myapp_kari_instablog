@@ -1,6 +1,6 @@
-<%= form_with(model: instablog) do |form| %>
+<%= form_with(model: instablog, class: "needs-validation", novalidate: true) do |form| %>
   <% if instablog.errors.any? %>
-    <div style="color: red">
+    <div class="text-danger">
       <h2><%= pluralize(instablog.errors.count, "error") %> prohibited this instablog from being saved:</h2>
 
       <ul>
@@ -11,17 +11,18 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.text_area :body %>
+  <div class="mb-3">
+    <%= form.label :image, class: "form-label", style: "display: block" %>
+    <%= form.text_field :image, class: "form-control" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :body, class: "form-label", style: "display: block" %>
+    <%= form.text_area :body, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :image, style: "display: block" %>
-    <%= form.text_field :image %>
-  </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

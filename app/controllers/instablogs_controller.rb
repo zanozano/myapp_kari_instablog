@@ -1,5 +1,6 @@
 class InstablogsController < ApplicationController
-  before_action :set_instablog, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :check_admin_status, only: [:new, :create]
 
   # GET /instablogs or /instablogs.json
   def index
@@ -67,4 +68,11 @@ class InstablogsController < ApplicationController
     def instablog_params
       params.require(:instablog).permit(:body, :image)
     end
+
+    #admin
+    def check_admin_status
+    unless current_user.admin?
+      redirect_to root_path, alert: "You are not authorized to perform this action."
+    end
+  end
 end
