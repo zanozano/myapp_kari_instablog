@@ -1,30 +1,26 @@
-<p style="color: green"><%= notice %></p>
-<div class="container col-md-8 col-12 mt-4">
-  <div class="p-4">
-    <h1 class="text-center mb-5 fw-bold">Instablogs</h1>
-
-    <div id="instablogs">
-      <% @instablogs.each do |instablog| %>
-        <%= render instablog %>
-
-        <%= form_with(model: Comment.new, url: comments_path(instablog_id: instablog.id), local: true) do |form| %>
-          <div class="mb-3">
-            <%= form.label :text, "Escribe tu comentario:" %>
-            <%= form.text_field :text, class: "form-control", id: "comment" %>
-          </div>
-          <% if current_user %>
-            <%= form.hidden_field :user_id, value: current_user.id %>
-          <% else %>
-            <%= form.hidden_field :user_email, value: "Anónimo" %>
-          <% end %>
-          <%= form.submit "Enviar", class: "btn btn-primary" %>
-        <% end %>
-
-      <% end %>
+<% if notice.present? %>
+  <div class="container col-md-8 col-12 mt-4" style="position: relative; z-index: 9999;">
+    <div class="alert alert-primary" role="alert">
+      <p class="text-center m-0" style="color: green"><%= notice %></p>
     </div>
+  </div>
+  <script>
+    setTimeout(function() {
+      $('.alert').fadeOut();
+    }, 6000);
+  </script>
+<% end %>
 
-    <% if current_user.admin? %>
-      <%= link_to "Nuevo Instablog", new_instablog_path, class: "btn btn-success w-100 text-center" %>
+
+<div class="container col-md-8 col-12 mt-4">
+  <h1 class="text-center mb-3 fw-bold">Instablogs</h1>
+  <% if current_user.admin? %>
+    <%= link_to "Nuevo Instablog", new_instablog_path, class: "btn btn-success w-100 text-center", style: "position: relative; z-index: 9999;" %>
+  <% end %>
+
+  <div id="instablogs">
+    <% @instablogs.each do |instablog| %>
+      <%= render instablog %>
     <% end %>
   </div>
 </div>

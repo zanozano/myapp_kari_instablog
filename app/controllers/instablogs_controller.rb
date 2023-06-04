@@ -1,7 +1,7 @@
 class InstablogsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin_status, only: [:new, :create]
-
+  before_action :set_instablog, only: [:show, :edit, :update, :destroy]
   # GET /instablogs or /instablogs.json
   def index
     @instablogs = Instablog.all
@@ -26,7 +26,7 @@ class InstablogsController < ApplicationController
 
     respond_to do |format|
       if @instablog.save
-        format.html { redirect_to instablog_url(@instablog), notice: "Instablog was successfully created." }
+        format.html { redirect_to instablogs_url, notice: "Instablog was successfully created." }
         format.json { render :show, status: :created, location: @instablog }
       else
         format.html { render :new, status: :unprocessable_entity }

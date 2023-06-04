@@ -8,10 +8,12 @@ class CommentsController < ApplicationController
     end
 
     if @comment.save
-      redirect_to instablog_path(@instablog), notice: "Comment created successfully."
+      flash[:notice] = "Comentario creado satisfactoriamente"
     else
-      render :new
+      flash[:alert] = "Hubo un error al crear el comentario"
     end
+
+    redirect_back(fallback_location: root_path)
   end
 
   private
