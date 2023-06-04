@@ -15,7 +15,15 @@
 
   <% instablog.comments.order(created_at: :desc).each do |comment| %>
     <div class="comment">
-      <p class="m-0"><strong><%= comment.user.email %></strong></p> 
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <% if comment.user.img_profile.present? %>
+          <div class="profile-image">
+            <%= image_tag comment.user.img_profile.url, width: 50, height: 50, class:"rounded-3" %>
+          </div>
+        <% end %>
+        <p class="m-0"><strong><%= comment.user.email %></strong></p> 
+      </div>
+
       <p><%= comment.text %></p>
       <pre class="timestamp"><%= comment.created_at %></pre>
       <hr>
@@ -40,5 +48,4 @@
     <hr>
     <%= link_to "Editar", instablog_path(instablog), class: "btn btn-primary" %>
   <% end %>
-
 </div>
